@@ -1,0 +1,48 @@
+name: Verify PlexonClaimFlags
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reconstruct source project
+        shell: bash
+        run: |
+          mkdir -p /tmp/plexon-build
+          cat .build/source.part00 .build/source.part01 .build/source.part02 .build/source.part03 .build/source.part04 | base64 --decode > /tmp/PlexonClaimFlags-source.zip
+          unzip -q /tmp/PlexonClaimFlags-source.zip -d /tmp/plexon-build
+          test -f /tmp/plexon-build/PlexonClaimFlags/build.gradle.kts
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle 9.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.7.0'
+
+      - name: Compile against real Paper 26.2 and GriefPrevention
+        working-directory: /tmp/plexon-build/PlexonClaimFlags
+        run: gradle clean build --stacktrace
+
+      - name: Upload verified JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlexonClaimFlags-1.0.0-verified
+          path: /tmp/plexon-build/PlexonClaimFlags/build/libs/PlexonClaimFlags-1.0.0.jar
+
+      - name: Upload canonical source
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlexonClaimFlags-1.0.0-source
+          path: /tmp/PlexonClaimFlags-source.zip
