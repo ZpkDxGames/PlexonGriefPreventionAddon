@@ -1,0 +1,29 @@
+name: PlexonClaimFlags
+version: ${version}
+main: net.plexon.claimflags.PlexonClaimFlags
+api-version: '26.2'
+author: Plexon
+description: Per-claim and per-subclaim protection flags addon for GriefPrevention.
+depend: [GriefPrevention]
+softdepend: [PlexonCore]
+
+commands:
+  claimsflags:
+    description: Configure protection flags for the GriefPrevention claim or subdivision you are standing in.
+    usage: /claimsflags [areas|list|set|parent|sub|reload|diagnostics]
+    aliases: [claimflags, cf]
+    permission: plexonclaimflags.use
+
+permissions:
+  plexonclaimflags.use:
+    description: Open and manage flags for claims you own.
+    default: true
+  plexonclaimflags.admin:
+    description: Manage flags for any player claim and use administrative commands.
+    default: op
+  plexonclaimflags.adminclaims:
+    description: Manage flags on GriefPrevention administrative claims.
+    default: op
+  plexonclaimflags.bypass:
+    description: Bypass player-targeted PlexonClaimFlags restrictions.
+    default: op

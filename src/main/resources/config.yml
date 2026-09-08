@@ -1,0 +1,148 @@
+# PlexonClaimFlags 1.1.0
+# Every flag means "PREVENT this behavior when enabled".
+# A disabled flag simply lets GriefPrevention / Paper / other plugins decide normally.
+
+settings:
+  # Subclaims inherit a missing flag from their parent claim.
+  # Left-clicking a flag in a subclaim creates an explicit override.
+  # Right-clicking removes that override and returns to inheritance.
+  subclaims-inherit-parent: true
+
+  # CreatureSpawnEvent reasons treated as natural spawning.
+  natural-spawn-reasons:
+    - NATURAL
+    - CHUNK_GEN
+
+  # Only actual mob-spawner block spawns by default.
+  spawner-spawn-reasons:
+    - SPAWNER
+
+  # Materials covered by the generic interactions flag.
+  interaction-materials:
+    - OAK_DOOR
+    - SPRUCE_DOOR
+    - BIRCH_DOOR
+    - JUNGLE_DOOR
+    - ACACIA_DOOR
+    - DARK_OAK_DOOR
+    - MANGROVE_DOOR
+    - CHERRY_DOOR
+    - BAMBOO_DOOR
+    - CRIMSON_DOOR
+    - WARPED_DOOR
+    - IRON_DOOR
+    - COPPER_DOOR
+    - EXPOSED_COPPER_DOOR
+    - WEATHERED_COPPER_DOOR
+    - OXIDIZED_COPPER_DOOR
+    - WAXED_COPPER_DOOR
+    - WAXED_EXPOSED_COPPER_DOOR
+    - WAXED_WEATHERED_COPPER_DOOR
+    - WAXED_OXIDIZED_COPPER_DOOR
+    - CRAFTING_TABLE
+    - FURNACE
+    - BLAST_FURNACE
+    - SMOKER
+    - STONECUTTER
+    - LOOM
+    - CARTOGRAPHY_TABLE
+    - SMITHING_TABLE
+    - GRINDSTONE
+    - ANVIL
+    - CHIPPED_ANVIL
+    - DAMAGED_ANVIL
+    - ENCHANTING_TABLE
+    - BREWING_STAND
+    - LECTERN
+    - COMPOSTER
+    - LEVER
+    - BEACON
+    - CRAFTER
+
+  # Suffix matching supplements the explicit interaction list for wood variants.
+  interaction-material-suffixes:
+    - _DOOR
+    - _BUTTON
+    - _PRESSURE_PLATE
+    - _TRAPDOOR
+    - _FENCE_GATE
+
+  # Chests are deliberately separate from the generic interactions flag.
+  # Add/remove container blocks here to fit Plexon's gameplay.
+  container-materials:
+    - CHEST
+    - TRAPPED_CHEST
+    - BARREL
+    - ENDER_CHEST
+    - HOPPER
+    - DISPENSER
+    - DROPPER
+    - SHULKER_BOX
+    - WHITE_SHULKER_BOX
+    - ORANGE_SHULKER_BOX
+    - MAGENTA_SHULKER_BOX
+    - LIGHT_BLUE_SHULKER_BOX
+    - YELLOW_SHULKER_BOX
+    - LIME_SHULKER_BOX
+    - PINK_SHULKER_BOX
+    - GRAY_SHULKER_BOX
+    - LIGHT_GRAY_SHULKER_BOX
+    - CYAN_SHULKER_BOX
+    - PURPLE_SHULKER_BOX
+    - BLUE_SHULKER_BOX
+    - BROWN_SHULKER_BOX
+    - GREEN_SHULKER_BOX
+    - RED_SHULKER_BOX
+    - BLACK_SHULKER_BOX
+
+# Defaults apply to main claims when no explicit value has ever been stored.
+# Subclaims inherit the parent when settings.subclaims-inherit-parent is true.
+defaults:
+  natural-mobs: false
+  spawner-mobs: false
+  pvp: false
+  building: false
+  interactions: false
+  containers: false
+  explosions: false
+  fire: false
+  crop-trampling: false
+  mob-griefing: false
+
+gui:
+  title: "&8Claim Flags &7• &f%area%"
+  areas-title: "&8Claim Areas &7• &f%owner%"
+  filler: BLACK_STAINED_GLASS_PANE
+  close-material: BARRIER
+  areas-material: MAP
+  parent-material: GRASS_BLOCK
+  subclaim-material: OAK_FENCE
+  info-material: BOOK
+
+messages:
+  prefix: "&#41C902&lClaim Flags &8» &7"
+  no-claim: "%prefix%You must be standing inside a GriefPrevention claim."
+  not-owner: "%prefix%You can only configure your own claims."
+  admin-claim-denied: "%prefix%Only staff with &fplexonclaimflags.adminclaims &7may configure administrative claims."
+  no-permission: "%prefix%You do not have permission to do that."
+  invalid-flag: "%prefix%Unknown flag. Use &f/claimsflags list &7to see the available flags."
+  invalid-state: "%prefix%Use &aon&7, &coff&7, or &binherit &7(on subclaims)."
+  invalid-subclaim: "%prefix%That subdivision number does not exist in this claim."
+  invalid-target: "%prefix%Target must be &fcurrent&7, &fparent&7, or &fsub:<number>&7."
+  reloaded: "%prefix%Configuration reloaded."
+  changed: "%prefix%&f%flag% &7is now %state%&7 for &f%area%&7."
+  inherited: "%prefix%&f%flag% &7now inherits its value from the parent claim."
+  protected-action: "%prefix%That action is disabled by this claim's flags."
+  persistence-error: "%prefix%&cThe flag change could not be saved safely. No durable change was applied."
+
+flag-names:
+  natural-mobs: "Natural Mob Spawning"
+  spawner-mobs: "Spawner Mob Spawning"
+  pvp: "PvP"
+  building: "Building by Others"
+  interactions: "Interactions by Others"
+  containers: "Container Access by Others"
+  explosions: "Explosion Block Damage"
+  fire: "Fire Spread / Damage"
+  crop-trampling: "Crop Trampling"
+  mob-griefing: "Mob Griefing"
