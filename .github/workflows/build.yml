@@ -176,7 +176,6 @@ jobs:
             gh release upload "$TAG" "$JAR" "$SUMS" --clobber
           else
             gh release create "$TAG" "$JAR" "$SUMS" \
-              --target "$TAG" \
               --title "PlexonClaimFlags ${PLUGIN_VERSION}" \
               --notes-file RELEASE_NOTES.md
           fi
