@@ -85,3 +85,29 @@ jobs:
           name: PlexonClaimFlags-${{ env.PLUGIN_VERSION }}
           path: build/release/
           if-no-files-found: error
+
+  release-tag:
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      startsWith(github.event.head_commit.message, 'release: PlexonClaimFlags 1.1.0')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout verified release commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create v1.1.0 tag after successful verification
+        shell: bash
+        run: |
+          TAG="v${PLUGIN_VERSION}"
+          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "${TAG} already exists; leaving it unchanged."
+          else
+            git tag "${TAG}" "${GITHUB_SHA}"
+            git push origin "refs/tags/${TAG}"
+          fi
